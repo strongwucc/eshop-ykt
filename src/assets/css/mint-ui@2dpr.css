@@ -1,0 +1,36 @@
+
+.mint-datetime-picker{
+
+}
+.picker-toolbar {
+  height: 88px!important;
+}
+.mint-datetime-action{
+  line-height: 88px!important;
+  font-size: 30px!important;
+}
+.mint-datetime-cancel{
+  color: #666666!important;
+}
+.mint-datetime-confirm{
+  color: #ffd726;
+}
+.picker-slot{
+  font-size: 24px!important;
+}
+/*.picker-item{*/
+  /*height: 44px!important;*/
+  /*line-height: 44px!important;*/
+/*}*/
+.picker-center-highlight:before{
+  height: 2px!important;
+}
+.picker-center-highlight:after{
+  height: 2px!important;
+}
+.mint-indicator .mint-indicator-wrapper {
+  z-index: 999 !important;
+}
+.mint-indicator .mint-indicator-mask {
+  z-index: 999 !important;
+}

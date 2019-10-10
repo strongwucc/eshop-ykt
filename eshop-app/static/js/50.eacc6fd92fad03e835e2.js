@@ -1,0 +1,2 @@
+webpackJsonp([50],{BYM5:function(e,a){},kGN0:function(e,a,t){"use strict";Object.defineProperty(a,"__esModule",{value:!0});var n={name:"takeaway_detail",components:{back:t("3XNK").a}},r={render:function(){var e=this.$createElement,a=this._self._c||e;return a("div",{staticClass:"takeaway-detail"},[a("back",{attrs:{url:"/my_order/takeaway"}})],1)},staticRenderFns:[]};var c=t("VU/8")(n,r,!1,function(e){t("BYM5")},"data-v-1c6800db",null);a.default=c.exports}});
+//# sourceMappingURL=50.eacc6fd92fad03e835e2.js.map
