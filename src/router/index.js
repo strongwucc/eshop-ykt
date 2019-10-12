@@ -25,6 +25,7 @@ const BindCard = r => require.ensure([], () => r(require('@/components/bind_card
 const MyBalanceNew = r => require.ensure([], () => r(require('@/components/my_balance_new/my_balance_new')), 'my_balance_new')//我的余额（新）
 const CardDetail = r => require.ensure([], () => r(require('@/components/card_detail/card_detail')), 'card_detail')//卡详情
 const MemberRecharge = r => require.ensure([], () => r(require('@/components/member_recharge/member_recharge')), 'member_recharge')//会员充值
+const CardRecharge = r => require.ensure([], () => r(require('@/components/card_recharge/card_recharge')), 'member_recharge')//会员卡充值
 const PeopleNum = r => require.ensure([], () => r(require('@/components/people_num/people_num')), 'people_num')//就餐人数
 const ShopCart = r => require.ensure([], () => r(require('@/components/shop_cart/shop_cart')), 'shop_cart')//购物车页面
 const Search = r => require.ensure([], () => r(require('@/components/search/search')), 'search')//搜索页面
@@ -298,7 +299,7 @@ export default new Router({
     },
 
     {
-      path: '/card_detail/:type',
+      path: '/card_detail/:cardNo',
       name: 'card_detail',
       component: CardDetail,
       meta: {
@@ -316,6 +317,18 @@ export default new Router({
       meta: {
         auth: 1,
         title: '会员充值',
+        index: 2,
+        fullScreen: true
+      }
+    },
+
+    {
+      path: '/card_recharge/:cardNo',
+      name: 'card_recharge',
+      component: CardRecharge,
+      meta: {
+        auth: 1,
+        title: '会员卡充值',
         index: 2,
         fullScreen: true
       }

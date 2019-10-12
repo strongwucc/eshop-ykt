@@ -3,7 +3,7 @@
     <div class="my-cards-area">
       <div class="title">
         <span class="label">我的卡</span>
-        <span class="count">共3张</span>
+        <span class="count">共{{userInfo.card_info.cardNum}}张</span>
       </div>
       <div class="virtual-card">
         <div class="info">
@@ -11,7 +11,7 @@
             <span class="label">会员卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right">充值</div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})">充值</div>
         </div>
         <div class="money">
           <span class="label">余额(元)</span>
@@ -24,7 +24,7 @@
             <span class="label">实体卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right"><span class="btn">充值</span></div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})"><span class="btn">充值</span></div>
         </div>
         <div class="money">
           <div class="left">
@@ -50,6 +50,7 @@
     name: "my_card_holder",
     data () {
       return {
+        cards: [],
         activable: false,
         loading: false,
         allLoaded: false
@@ -59,6 +60,7 @@
     created () {
     },
     mounted () {
+      this.getCards()
     },
     computed: {
       ...mapState({
@@ -66,6 +68,15 @@
       })
     },
     methods: {
+      getCards () {
+        this.loading = true
+        this.$http.post(this.API.user.member_cards,{}).then(res => {
+          this.loading = false
+          if (res.return_code === '0000') {
+            this.cards = this.cards.concat(res.data.list)
+          }
+        })
+      },
       activate () {
         this.activable = true
       },

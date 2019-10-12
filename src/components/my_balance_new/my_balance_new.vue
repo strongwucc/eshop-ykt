@@ -2,27 +2,27 @@
   <div class="my-balance-new-page">
     <div class="my-balance-area">
       <div class="title">余额总计(元)</div>
-      <div class="balance">0.00</div>
-      <div class="virtual-card">
+      <div class="balance">{{ userInfo.card_info.balance | formatMoney }}</div>
+      <div class="virtual-card" @click="$router.push({name: 'card_detail', params: {cardNo: 111}})">
         <div class="info">
           <div class="left">
             <span class="label">会员卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right">充值</div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})">充值</div>
         </div>
         <div class="money">
           <span class="label">余额(元)</span>
           <span class="value">0.00</span>
         </div>
       </div>
-      <div class="entity-card">
+      <div class="entity-card" @click="$router.push({name: 'card_detail', params: {cardNo: 111}})">
         <div class="info">
           <div class="left">
             <span class="label">实体卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right"><span class="btn">充值</span></div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})"><span class="btn">充值</span></div>
         </div>
         <div class="money">
           <div class="left">
@@ -32,11 +32,11 @@
           <div class="right">20.00</div>
         </div>
       </div>
-      <div class="add-card-area" @click.stop="$router.push('/bind_card')">
+      <div class="add-card-area" @click.stop="$router.push('/bind_card')" v-if="userInfo.card_info.cardNum > 0">
         <img class="icon" src="../../assets/img/my_blance_new/icon_plus@2x.png"/>
         <span class="notice">添加实体卡</span>
       </div>
-      <div class="activate-btn" @click.stop="activate">激活会员卡</div>
+      <div class="activate-btn" @click.stop="activate" v-if="userInfo.card_info.cardNum == 0">激活会员卡</div>
     </div>
     <div class="mask" v-show="activable"></div>
     <div class="activate-area" v-show="activable">
@@ -62,6 +62,7 @@
     name: "my_balance_new",
     data () {
       return {
+        cards: [],
         activable: false,
         loading: false,
         allLoaded: false
@@ -71,6 +72,7 @@
     created () {
     },
     mounted () {
+      this.getCards()
     },
     computed: {
       ...mapState({
@@ -78,6 +80,15 @@
       })
     },
     methods: {
+      getCards () {
+        this.loading = true
+        this.$http.post(this.API.user.member_cards,{}).then(res => {
+          this.loading = false
+          if (res.return_code === '0000') {
+            this.cards = this.cards.concat(res.data.list)
+          }
+        })
+      },
       activate () {
         this.activable = true
       },

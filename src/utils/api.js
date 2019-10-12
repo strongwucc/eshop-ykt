@@ -23,6 +23,7 @@ export default {
     edit_info: 'member.edit_info',                        // 修改用户信息
     recharge_face: 'member.recharge_face',                // 充值面值
     recharge: 'member.recharge',                          // 会员充值
+    card_recharge: 'member.card_recharge',                // 会员卡充值
     recharge_logs: 'member.recharge_logs',                // 充值记录
     coupon_list: 'member.coupons',                        // 优惠券列表
     coupon_detail: 'member.coupon',                       // 优惠券详情
@@ -30,6 +31,10 @@ export default {
     coupon_status: 'member.coupon_status',                // 优惠券适用状态
     bind_wechat: 'member.bind_wechat',                    // 绑定微信
     bind_alipay: 'member.bind_alipay',                    // 绑定支付宝
+    member_cards: 'member.cards',                         // 会员卡列表
+    member_card_info: 'member.card_info',                 // 会员卡信息
+    member_card_records: 'member.card_records',           // 会员卡消费记录
+    activate_card: 'member.activate_card',                // 会员卡激活
 	},
 
   seller: {

@@ -19,6 +19,7 @@
   import Valid from '../../utils/valid'
   import Encrypt from "../../assets/js/encrypt/encrypt"
   import back from '../../base/back'
+  import $ from 'jquery'
 
   export default {
     name: "set_card_pw",
@@ -30,7 +31,8 @@
           icon: '',
           txt: ''
         },
-        warnTip: false
+        warnTip: false,
+        loading: false,
       }
     },
     components: {
@@ -79,6 +81,10 @@
       },
       confirm () {
 
+        if (this.loading) {
+          return false
+        }
+
         if(window.passGuard1.getValid() == 1){
           this.warnTip = true
           this.tipInfo = {
@@ -109,9 +115,41 @@
           return false
         }
 
-        let password = window.passGuard1.getOutput()
+        let _this = this
 
-        console.log(password)
+        $.ajax( {
+          url : "http://ceshi4.sdykt.com.cn:1280/demo/send_randkey?" + this.get_time(),
+          type : "GET",
+          async : false,
+          success : function(ranKey) {
+            console.log(ranKey)
+            window.passGuard1.setRandKey(ranKey);
+            let password = window.passGuard1.getOutput()
+            console.log(password)
+            _this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
+            _this.loading = true
+            _this.$http.post(_this.API.user.activate_card,{password: password, key: ranKey}).then(res => {
+              _this.$myLoading.close()
+              _this.loading = false
+              if (res.return_code === '0000') {
+                _this.warnTip = true
+                _this.tipInfo = {
+                  type: 'success',
+                  txt: '激活成功'
+                }
+                _this.$router.go(-1)
+                return true
+              } else {
+                _this.warnTip = true
+                _this.tipInfo = {
+                  type: 'error',
+                  txt: res.return_msg
+                }
+                return false
+              }
+            })
+          }
+        });
 
         // this.$http.post(this.API.user.change_paycode,{cur_code: Encrypt.encrypt(this.nowPw), new_code: Encrypt.encrypt(this.resetPw)}).then(res => {
         //   if (res.return_code === '0000') {
@@ -137,6 +175,9 @@
       },
       cb2 () {
         console.log('cb2')
+      },
+      get_time () {
+        return new Date().getTime().toString();
       }
     }
   }

@@ -1,26 +1,26 @@
 <template>
   <div class="card-detail-page">
     <div class="banner" ref="banner">
-      <div class="virtual-card" v-if="type === '0'">
+      <div class="virtual-card" v-if="'0' === '0'">
         <div class="info">
           <div class="left">
             <span class="label">会员卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right">充值</div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})">充值</div>
         </div>
         <div class="money">
           <span class="label">余额(元)</span>
           <span class="value">0.00</span>
         </div>
       </div>
-      <div class="entity-card" v-if="type === '1'">
+      <div class="entity-card" v-if="'0' === '1'">
         <div class="info">
           <div class="left">
             <span class="label">实体卡</span>
             <span class="no">NO.1254****5654</span>
           </div>
-          <div class="right"><span class="btn">充值</span></div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})"><span class="btn">充值</span></div>
         </div>
         <div class="money">
           <div class="left">
@@ -39,16 +39,12 @@
       <div class="scroll-box" ref="scrollBox">
         <div v-show="Array.isArray(transactionList) && !transactionList.length" class="no-transaction" ref="noTrans">
           <img src="../../assets/img/my_balance/img_yue@2x.png">
-          <p>还没有充值记录哦~</p>
+          <p>还没有记录哦~</p>
         </div>
         <ul
           v-show="Array.isArray(transactionList) && transactionList.length"
           class="transaction-list"
-          ref="transList"
-          v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="allLoaded"
-          infinite-scroll-immediate-check="false"
-          infinite-scroll-distance="50">
+          ref="transList">
           <li class="transaction-info" v-for="item in transactionList">
             <div class="left">
               <h3 class="store-name">{{item.message}}</h3>
@@ -59,10 +55,37 @@
             <div class="right" v-else-if="item.import_money > 0">+{{item.import_money|formatMoney}}</div>
           </li>
         </ul>
-        <p class="load-more" v-show="!allLoaded"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;加载中...</p>
-        <p class="no-more" v-show="allLoaded">已加载全部</p>
+        <!--<p class="load-more" v-show="!allLoaded"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;加载中...</p>-->
+        <!--<p class="no-more" v-show="allLoaded">已加载全部</p>-->
         <!--<div class="fill" v-show="allLoaded"></div>-->
       </div>
+      <!--<div class="scroll-box" ref="scrollBox">-->
+        <!--<div v-show="Array.isArray(transactionList) && !transactionList.length" class="no-transaction" ref="noTrans">-->
+          <!--<img src="../../assets/img/my_balance/img_yue@2x.png">-->
+          <!--<p>还没有记录哦~</p>-->
+        <!--</div>-->
+        <!--<ul-->
+          <!--v-show="Array.isArray(transactionList) && transactionList.length"-->
+          <!--class="transaction-list"-->
+          <!--ref="transList"-->
+          <!--v-infinite-scroll="loadMore"-->
+          <!--infinite-scroll-disabled="allLoaded"-->
+          <!--infinite-scroll-immediate-check="false"-->
+          <!--infinite-scroll-distance="50">-->
+          <!--<li class="transaction-info" v-for="item in transactionList">-->
+            <!--<div class="left">-->
+              <!--<h3 class="store-name">{{item.message}}</h3>-->
+              <!--<p class="order-NO">订单号：{{item.order_id}}</p>-->
+              <!--<p class="order-date">订单时间：{{item.mtime|toDate}}</p>-->
+            <!--</div>-->
+            <!--<div class="right" v-if="item.explode_money > 0">-{{item.explode_money|formatMoney}}</div>-->
+            <!--<div class="right" v-else-if="item.import_money > 0">+{{item.import_money|formatMoney}}</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+        <!--<p class="load-more" v-show="!allLoaded"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;加载中...</p>-->
+        <!--<p class="no-more" v-show="allLoaded">已加载全部</p>-->
+        <!--<div class="fill" v-show="allLoaded"></div>-->
+      <!--</div>-->
     </div>
     <back></back>
   </div>
@@ -75,8 +98,9 @@
     name: "card_detail",
     data () {
       return {
-        type: 0,
-        transactionList: [],//伪数据
+        cardNo: '',
+        cardInfo: {},
+        transactionList: [],
         page: 1,
         pageLimit: 8,
         balanceDescViewVisible: false,
@@ -86,15 +110,17 @@
     },
     components: {back},
     created () {
-      if (this.$route.params.type) {
-        this.type = this.$route.params.type
+      if (this.$route.params.cardNo) {
+        this.cardNo = this.$route.params.cardNo
       }
     },
     mounted () {
-      setTimeout(() => {
-        this.setScrollHeight()
-        this.loadMore()
-      }, 20)
+      this.getRecords()
+      this.getCardInfo()
+      // setTimeout(() => {
+      //   this.setScrollHeight()
+      //   this.loadMore()
+      // }, 20)
     },
     computed: {
       ...mapState({
@@ -107,7 +133,20 @@
         this.$refs.scrollBox.style.height = scrollHeight + 'px'
         this.$refs.noTrans.style.height = scrollHeight - 80 + 'px'
       },
-
+      getCardInfo() {
+        this.$http.post(this.API.user.member_card_info,{no: this.cardNo}).then(res => {
+          if (res.return_code === '0000') {
+            this.cardInfo = res.data.info
+          }
+        })
+      },
+      getRecords () {
+        this.$http.post(this.API.user.member_card_records,{no: this.cardNo}).then(res => {
+          if (res.return_code === '0000') {
+            this.transactionList = this.transactionList.concat(res.data.list)
+          }
+        })
+      },
       loadMore () {
         this.loading = true
         this.$http.post(this.API.user.recharge_logs,{page: this.page, page_limit: this.pageLimit}).then(res => {
@@ -134,6 +173,7 @@
   @import "../../assets/css/common";
   .card-detail-page{
     height: 100%;
+    background-color: #ffffff;
     .banner{
       width: 100%;
       background-color: #ffffff;
@@ -297,6 +337,7 @@
       z-index: 9;
       -webkit-overflow-scrolling : touch;
       .title{
+        background-color: rgba(242,242,245,1);
         display: flex;
         padding: 0 30px;
         height: 80px;/*px*/
@@ -309,8 +350,9 @@
       }
       .scroll-box{
         background-color: #ffffff;
-        overflow: scroll;
+        /*overflow: scroll;*/
         .no-transaction{
+          margin-top: 50px;
           display: flex;
           flex-direction: column;
           align-items: center;

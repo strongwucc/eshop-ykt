@@ -52,7 +52,8 @@
           <span class="txt">优惠券</span>
         </div>
         <div class="balance" @click="$router.push('/my_balance_new')">
-          <span class="num">{{ userInfo.advance | formatMoney }}</span>
+          <!--<span class="num">{{ userInfo.advance | formatMoney }}</span>-->
+          <span class="num">{{ userInfo.card_info.balance | formatMoney }}</span>
           <span class="txt">余额（元）</span>
         </div>
       </div>
@@ -62,7 +63,7 @@
         <li @click="$router.push('/my_card_holder')">
           <div class="l">
             <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png">
-            <span class="txt">我的卡包</span>
+            <span class="txt"><span>我的卡包</span><span class="count">{{userInfo.card_info.cardNum}}张</span></span>
           </div>
           <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
         </li>
@@ -447,11 +448,25 @@
       align-items: center;
       .l{
         height: 60px;
+        width: 100%;
         display: flex;
+        justify-content: flex-start;
         align-items: center;
         .icon{
           width: 40px;
           margin-right: 18px;
+        }
+        .txt{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+        .count{
+          /*width: 100%;*/
+          /*text-align: right;*/
+          font-size:28px;
+          font-weight:400;
+          color:rgba(153,153,153,1);
         }
       }
       .arrow-r{
