@@ -18,7 +18,12 @@ const ResetPw = r => require.ensure([], () => r(require('@/components/reset_pw/r
   const Step01 = r => require.ensure([], () => r(require('@/components/reset_pw/step/step01')), 'step01')//重置密码(步骤1)
   const Step02 = r => require.ensure([], () => r(require('@/components/reset_pw/step/step02')), 'step02')//重置密码(步骤2)
 const MyScores = r => require.ensure([], () => r(require('@/components/my_scores/my_scores')), 'my_scores')//我的积分
+const SetCardPw = r => require.ensure([], () => r(require('@/components/set_card_pw/set_card_pw')), 'set_card_pw')//设置支付密码
 const MyBalance = r => require.ensure([], () => r(require('@/components/my_balance/my_balance')), 'my_balance')//我的余额
+const MyCardHolder = r => require.ensure([], () => r(require('@/components/my_card_holder/my_card_holder')), 'my_card_holder')//我的卡包
+const BindCard = r => require.ensure([], () => r(require('@/components/bind_card/bind_card')), 'bind_card')//绑卡
+const MyBalanceNew = r => require.ensure([], () => r(require('@/components/my_balance_new/my_balance_new')), 'my_balance_new')//我的余额（新）
+const CardDetail = r => require.ensure([], () => r(require('@/components/card_detail/card_detail')), 'card_detail')//卡详情
 const MemberRecharge = r => require.ensure([], () => r(require('@/components/member_recharge/member_recharge')), 'member_recharge')//会员充值
 const PeopleNum = r => require.ensure([], () => r(require('@/components/people_num/people_num')), 'people_num')//就餐人数
 const ShopCart = r => require.ensure([], () => r(require('@/components/shop_cart/shop_cart')), 'shop_cart')//购物车页面
@@ -233,12 +238,72 @@ export default new Router({
     },
 
     {
+      path: '/set_card_pw',
+      name: 'set_card_pw',
+      component: SetCardPw,
+      meta: {
+        auth: 1,
+        title: '设置支付密码',
+        index: 2,
+        fullScreen: false
+      }
+    },
+
+    {
       path: '/my_balance',
       name: 'my_balance',
       component: MyBalance,
       meta: {
         auth: 1,
         title: '我的余额',
+        index: 2,
+        fullScreen: false
+      }
+    },
+
+    {
+      path: '/my_card_holder',
+      name: 'my_card_holder',
+      component: MyCardHolder,
+      meta: {
+        auth: 1,
+        title: '我的卡包',
+        index: 2,
+        fullScreen: false
+      }
+    },
+
+    {
+      path: '/my_balance_new',
+      name: 'my_balance_new',
+      component: MyBalanceNew,
+      meta: {
+        auth: 1,
+        title: '我的余额',
+        index: 2,
+        fullScreen: false
+      }
+    },
+
+    {
+      path: '/bind_card',
+      name: 'bind_card',
+      component: BindCard,
+      meta: {
+        auth: 1,
+        title: '绑卡',
+        index: 2,
+        fullScreen: false
+      }
+    },
+
+    {
+      path: '/card_detail/:type',
+      name: 'card_detail',
+      component: CardDetail,
+      meta: {
+        auth: 1,
+        title: '卡详情',
         index: 2,
         fullScreen: false
       }

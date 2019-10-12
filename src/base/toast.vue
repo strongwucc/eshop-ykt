@@ -1,8 +1,10 @@
 <template>
   <transition name="fade">
-    <div v-if="visible && !errorTxt" class="toast">
-      <img v-if="options.type" :src="icon">
-      <p>{{options.txt}}</p>
+    <div v-if="visible && !errorTxt" class="mask">
+      <div class="toast">
+        <img v-if="options.type" :src="icon">
+        <p>{{options.txt}}</p>
+      </div>
     </div>
   </transition>
 </template>
@@ -74,21 +76,33 @@
 </script>
 
 <style lang="scss" scoped>
-  .toast{
-    position: fixed;
-    padding: 48px 60px;
-    color: #ffffff;
-    background-color: #444444;
-    border-radius: 8px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -125%);
-    font-size: 28px;/*px*/
-    text-align: center;
-    img{
-      position: relative;
-      top: -14px;
-      width: 50px;
+  .mask{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .toast{
+      padding: 48px 60px;
+      color: #ffffff;
+      background-color: #444444;
+      border-radius: 8px;
+      font-size: 28px;/*px*/
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img{
+        position: relative;
+        top: -14px;
+        width: 50px;
+      }
+      p{
+        text-align: center;
+      }
     }
   }
   .fade-enter-active, .fade-leave-active {

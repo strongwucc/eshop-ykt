@@ -1,50 +1,88 @@
 <template>
   <div class="center-page" ref="centerPage">
-    <div class="head-ipad">
-      <div class="head" v-cloak>
-        <img class="member-bg" src="../../assets/img/center/member_bg@2x.png" @load="memberBgImageLoaded" @error="memberBgImageError">
-        <img class="avatar" :src="userInfo.headimgurl | avatar">
-        <p class="member-name">{{ userInfo.nickname }}</p>
-        <p class="member-NO">NO.{{ userInfo.mobile }}</p>
-        <div class="code-btn" @touchstart="codeViewShow">
-          <img class="code-icon" src="../../assets/img/center/erweima@2x.png">
-          <span>会员码</span>
+    <!--<div class="head-ipad">-->
+      <!--<div class="head" v-cloak>-->
+        <!--<img class="member-bg" src="../../assets/img/quick_meal_center/member_card_bg@2x.png" @load="memberBgImageLoaded" @error="memberBgImageError">-->
+        <!--<img class="avatar" :src="userInfo.headimgurl | avatar">-->
+        <!--<p class="member-name">{{ userInfo.nickname }}</p>-->
+        <!--<p class="member-NO">NO.{{ userInfo.mobile }}</p>-->
+        <!--<div class="code-btn" @touchstart="codeViewShow">-->
+          <!--<img class="code-icon" src="../../assets/img/center/erweima@2x.png">-->
+          <!--<span>付款码</span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="member-icb">-->
+      <!--<div class="integral" @click="$router.push('/my_scores')">-->
+        <!--<p class="num">{{ userInfo.point }}</p>-->
+        <!--<p class="txt">我的积分</p>-->
+      <!--</div>-->
+      <!--<div class="coupon" @click="$router.push('/my_coupons')">-->
+        <!--<p class="num">{{ userInfo.coupon_count.unused }}</p>-->
+        <!--<p class="txt">优惠券</p>-->
+      <!--</div>-->
+      <!--<div class="balance" @click="$router.push('/my_balance')">-->
+        <!--<p class="num">{{ userInfo.advance | formatMoney }}</p>-->
+        <!--<p class="txt">余额（元）</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="member-info">
+      <div class="member-bg"><img src="../../assets/img/quick_meal_center/member_card_bg@2x.png"/></div>
+      <div class="member-account">
+        <div class="avatar"><img :src="userInfo.headimgurl | avatar"></div>
+        <div class="account">
+          <div class="account-info">
+            <div class="name">{{ userInfo.nickname }}</div>
+            <div class="mobile">
+              <img src="../../assets/img/quick_meal_center/icon_phone@2x.png"/><span>{{ userInfo.mobile }}</span>
+            </div>
+          </div>
+          <div class="account-code" @click.stop="codeViewShow">
+            <img src="../../assets/img/quick_meal_center/icon_huiyuanma@2x.png"/><span class="notice">付款码</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="member-icb">
-      <div class="integral" @click="$router.push('/my_scores')">
-        <p class="num">{{ userInfo.point }}</p>
-        <p class="txt">我的积分</p>
-      </div>
-      <div class="coupon" @click="$router.push('/my_coupons')">
-        <p class="num">{{ userInfo.coupon_count.unused }}</p>
-        <p class="txt">优惠券</p>
-      </div>
-      <div class="balance" @click="$router.push('/my_balance')">
-        <p class="num">{{ userInfo.advance | formatMoney }}</p>
-        <p class="txt">余额（元）</p>
+      <div class="member-icb">
+        <div class="integral" @click="$router.push('/my_scores')">
+          <span class="num">{{ userInfo.point }}</span>
+          <span class="txt">我的积分</span>
+        </div>
+        <div class="coupon" @click="$router.push('/my_coupons')">
+          <span class="num">{{ userInfo.coupon_count.unused }}</span>
+          <span class="txt">优惠券</span>
+        </div>
+        <div class="balance" @click="$router.push('/my_balance_new')">
+          <span class="num">{{ userInfo.advance | formatMoney }}</span>
+          <span class="txt">余额（元）</span>
+        </div>
       </div>
     </div>
     <div class="mian-list">
       <ul>
+        <li @click="$router.push('/my_card_holder')">
+          <div class="l">
+            <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png">
+            <span class="txt">我的卡包</span>
+          </div>
+          <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
+        </li>
         <li @click="$router.push('/member_info')">
           <div class="l">
-            <img class="icon" src="../../assets/img/center/member_icon_huiyuan@2x.png">
+            <img class="icon" src="../../assets/img/quick_meal_center/member_icon_huiyuan@2x.png">
             <span class="txt">会员信息</span>
           </div>
           <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
         </li>
-        <li @click="$router.push('/member_recharge')">
-          <div class="l">
-            <img class="icon" src="../../assets/img/center/member_icon_chongzhi@2x.png">
-            <span class="txt">会员充值</span>
-          </div>
-          <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
-        </li>
+        <!--<li @click="$router.push('/member_recharge')">-->
+          <!--<div class="l">-->
+            <!--<img class="icon" src="../../assets/img/center/member_icon_chongzhi@2x.png">-->
+            <!--<span class="txt">会员充值</span>-->
+          <!--</div>-->
+          <!--<img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">-->
+        <!--</li>-->
         <li @click="$router.push('/quick_meal_order')">
           <div class="l">
-            <img class="icon" src="../../assets/img/center/member_icon_order@2x.png">
+            <img class="icon" src="../../assets/img/quick_meal_center/member_icon_order@2x.png">
             <span class="txt">我的订单</span>
           </div>
           <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
@@ -78,14 +116,62 @@
           </div>
           <div class="qrcode" id="qrcode" ref="qrcode"></div>
           <p class="tip02">每60s自动刷新</p>
-          <p class="tip03">如遇扫码失败<br/>请将屏幕调至最亮重新扫码</p>
+          <!--<p class="tip03">如遇扫码失败<br/>请将屏幕调至最亮重新扫码</p>-->
           <div class="manual-refresh" @click="codeViewShow">
             <span>手动刷新动态码</span>
             <img src="../../assets/img/center/popup_icon_refurbish@2x.png">
           </div>
+          <div class="selected-card" @click.stop="showCardList">
+            <div class="card-no">
+              <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+              <span class="number">虚拟卡 NO.1325****1235</span>
+              <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
+            </div>
+            <div class="card-money">
+              余额:￥25.00
+            </div>
+          </div>
         </div>
         <div class="hide-view" @click="codeViewVisible = false">
           <img src="../../assets/img/common/popup_icon_close@2x.png">
+        </div>
+      </div>
+    </mt-popup>
+    <mt-popup
+      v-model="cardListVisible"
+      position="bottom">
+      <div class="card-list-area">
+        <div class="title">选择会员卡</div>
+        <div class="list">
+          <div class="list-item">
+            <div class="left">
+              <div class="card-no">
+                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <span class="number">会员卡 NO.1325****1235</span>
+              </div>
+              <div class="card-money">
+                余额:￥25.00
+              </div>
+            </div>
+            <div class="right"><img src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
+          </div>
+          <div class="list-item">
+            <div class="left">
+              <div class="card-no">
+                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <span class="number">会员卡 NO.1325****1235</span>
+              </div>
+              <div class="card-money">
+                余额:￥25.00
+              </div>
+            </div>
+            <div class="right"><img src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
+          </div>
+        </div>
+        <div class="bind-card" @click.stop="$router.push('/bind_card')">
+          <img class="icon" src="../../assets/img/quick_meal_center/icon_bangka@2x.png"/>
+          <span class="txt">绑卡</span>
+          <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
         </div>
       </div>
     </mt-popup>
@@ -115,6 +201,7 @@
           },
           codeTimer: null,
           featuresViewVisible: false,//显示功能列表
+          cardListVisible: false
 
         }
     },
@@ -122,7 +209,7 @@
         barcode
     },
     mounted () {
-      this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
+      // this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
     },
 
     beforeDestroy () {
@@ -177,6 +264,9 @@
       },
       memberBgImageError () {
         this.$myLoading.close()
+      },
+      showCardList () {
+        this.cardListVisible = true
       }
     },
     watch: {
@@ -203,88 +293,145 @@
   .center-page{
     height: 100%;
   }
-  .head-ipad{
+  .member-info{
     width: 100%;
+    height: 535px;
     background-color: #ffffff;
-
-  }
-  .head{
-    position: relative;
-    width: 10rem;
-    margin: 0 auto;
-    padding-top: 30px;
-    text-align: center;
-    height: 5.5rem;
-    .member-bg{
-      width: 730px;
-      height: auto;
-    }
-    .avatar{
-      width: 145px;
-      border-radius: 50%;
-      height: auto;
-      position: absolute;
-      left: 88px;
-      top: 65px;
-    }
-    .member-name{
-      position: absolute;
-      color: $color01;
-      top: 252px;
-      left: 88px;
-    }
-    .member-NO{
-      position: absolute;
-      color: $color01;
-      top: 295px;
-      left: 88px;
-    }
-    .code-btn{
-      display: flex;
-      position: absolute;
-      align-items: center;
-      width: 210px;
-      height: 80px;
-      top: 249px;
-      right: 29px;
-      border-top-left-radius: 40px;
-      border-bottom-left-radius: 40px;
-      background-color: rgba(0,0,0,.4);
-      color: #ffffff;
-      font-size: 26px;/*px*/
-      letter-spacing: 1px;
-      .code-icon{
-        width: 38px;
-        margin: 0 14px 0 43px;
-      }
-    }
-  }
-  .member-icb{
     display: flex;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 20px 30px 30px 30px;
-    div{
-      position: relative;
-      text-align: center;
-      flex-grow: 1;
-      .num{
-        font-size: 34px;/*px*/
-        color: $color02;
-        margin-bottom: 20px;
-      }
-      .txt{
-        font-size: 26px;/*px*/
-      }
-    }
-    .integral{
-      &:after{
-        @include border-1px(rgb(229,229,229), right);
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    .member-bg{
+      position: absolute;
+      z-index: 5;
+      top: -20px;
+      left: -30px;
+      width: 100%;
+      img{
+        width: 810px;
+        height: auto;
       }
     }
-    .coupon{
-      &:after{
-        @include border-1px(rgb(229,229,229), right);
+    .member-account{
+      z-index: 9;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: left;
+      .avatar{
+        margin-top: 70px;
+        margin-left: 80px;
+        img{
+          width: 120px;
+          height: 120px;
+        }
+      }
+      .account{
+        margin-top: 31px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .account-info{
+          display: flex;
+          flex-direction: column;
+          .name{
+            height:56px;
+            font-size:40px;
+            font-weight:bold;
+            line-height:56px;
+            color:rgba(51,51,51,1);
+            margin-left: 87px;
+            text-align: left;
+          }
+          .mobile{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-left: 82px;
+            margin-top: 5px;
+            img{
+              width: 32px;
+              height: 32px;
+            }
+            span{
+              height:42px;
+              font-size:30px;
+              font-weight:400;
+              line-height:42px;
+              color:rgba(51,51,51,1);
+            }
+          }
+        }
+        .account-code{
+          width:220px;
+          height:70px;
+          background:rgba(51,51,51,1);
+          border-radius:34px 0px 0px 34px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 30px;
+          img{
+            width: 48px;
+            height: 48px;
+            margin-right: 13px;
+          }
+          span{
+            height:37px;
+            font-size:26px;
+            font-weight:400;
+            line-height:37px;
+            color:rgba(255,255,255,1);
+          }
+        }
+      }
+    }
+    .member-icb{
+      display: flex;
+      width: 100%;
+      background-color: #ffffff;
+      height: 133px;
+      div{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .num{
+          height:56px;
+          font-size:40px;
+          font-weight:400;
+          line-height:56px;
+          color:rgba(255,106,89,1);
+        }
+        .txt{
+          height:37px;
+          font-size:26px;
+          font-weight:400;
+          line-height:37px;
+          color:rgba(102,102,102,1);
+        }
+        &:nth-child(1){
+          width: 260px;
+        }
+        &:nth-child(2){
+          width: 230px;
+        }
+        &:nth-child(3){
+          width: 258px;
+        }
+      }
+      .integral,.coupon{
+        &:after{
+          content: '';
+          position: absolute;
+          width:1px;
+          height:74px;
+          background:rgba(229,229,229,1);
+          right: 0;
+        }
       }
     }
   }
@@ -368,15 +515,66 @@
           margin-bottom: 48px;
         }
         .manual-refresh{
+          margin-top: 15px;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 88px;
-          background-color: #eeeeee;
-          color: #8f740d;
-          font-size: 28px;/*px*/
+          span{
+            height:40px;
+            font-size:28px;
+            font-weight:400;
+            line-height:40px;
+            color:rgba(143,116,13,1);
+          }
           img{
             width: 34px;
+          }
+        }
+        .selected-card{
+          margin-top: 21px;
+          position: relative;
+          height: 133px;
+          .card-no{
+            padding: 24px 19px 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .icon{
+              width: 36px;
+              height: 29px;
+            }
+            .number{
+              padding-left: 20px;
+              width: 100%;
+              text-align: left;
+              height:40px;
+              font-size:28px;
+              font-weight:bold;
+              line-height:40px;
+              color:rgba(51,51,51,1);
+            }
+            .drop-down{
+              width: 40px;
+              height: 40px;
+            }
+          }
+          .card-money{
+            height:40px;
+            font-size:28px;
+            font-weight:400;
+            line-height:40px;
+            color:rgba(143,116,13,1);
+            text-align: left;
+            padding-left: 86px;
+          }
+          &:before{
+            content: '';
+            position: absolute;
+            width:608px;
+            height:1px;
+            top: 0px;
+            left: 30px;
+            background:rgba(229,229,229,1);
           }
         }
       }
@@ -388,6 +586,88 @@
         width: 60px;
         img{
           width: 100%;
+        }
+      }
+    }
+    .card-list-area{
+      width:747px;
+      background-color: #ffffff;
+      .title{
+        height:99px;
+        font-size:36px;
+        font-weight:400;
+        line-height:99px;
+        color:rgba(51,51,51,1);
+        text-align: center;
+        border-bottom: 1px rgba(229,229,229,1) solid;
+      }
+      .list{
+        .list-item{
+          height: 135px;
+          margin: 0 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px rgba(229,229,229,1) solid;
+          .left{
+            .card-no{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .icon{
+                width: 36px;
+                height: 30px;
+              }
+              .number{
+                margin-left: 19px;
+                height:40px;
+                font-size:28px;
+                font-weight:bold;
+                line-height:40px;
+                color:rgba(51,51,51,1);
+              }
+            }
+            .card-money{
+              margin-top: 11px;
+              padding-left: 56px;
+              height:40px;
+              font-size:28px;
+              font-weight:400;
+              line-height:40px;
+              color:rgba(143,116,13,1);
+            }
+          }
+          .right{
+            img{
+              width: 48px;
+              height: 48px;
+            }
+          }
+        }
+      }
+      .bind-card{
+        height: 136px;
+        margin: 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .icon{
+          width: 37px;
+          height: 31px;
+        }
+        .txt{
+          height:40px;
+          font-size:28px;
+          font-weight:bold;
+          line-height:40px;
+          color:rgba(51,51,51,1);
+          width: 100%;
+          text-align: left;
+          padding-left: 19px;
+        }
+        .drop-down{
+          width: 48px;
+          height: 48px;
         }
       }
     }
