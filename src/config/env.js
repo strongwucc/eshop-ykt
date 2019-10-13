@@ -37,8 +37,8 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   imgBaseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   wxOauth = rootUrl + 'index.php/openapi/catering_route/esOauth'
-  wxRedirect = 'http://' + window.location.host + '/eshop/wechat.html'
-  aliRedirect = 'http://' + window.location.host + '/eshop/alipay.html'
+  wxRedirect = 'http://' + window.location.host + '/eshop-ykl/wechat.html'
+  aliRedirect = 'http://' + window.location.host + '/eshop-ykl/alipay.html'
 }
 
 export {

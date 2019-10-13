@@ -229,7 +229,7 @@
           this.paying = true
           this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
           let storeId = this.$store.state.common.common_data.store_info.store_id
-          this.$http.post(this.API.order.pay,{store_id: storeId, order_id: this.orderId, pay_type: this.payType,payment_code: Encrypt.encrypt(this.secret)}).then(res => {
+          this.$http.post(this.API.order.pay,{store_id: storeId, order_id: this.orderId, pay_type: this.payType,payment_code: Encrypt.encrypt(this.secret), h5_name: 'ykt'}).then(res => {
             this.paying = false
             this.$myLoading.close()
             if (res.return_code == '0000') {

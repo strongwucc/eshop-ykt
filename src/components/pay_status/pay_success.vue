@@ -62,12 +62,13 @@
         })
       },
       goDetail () {
+        let orderId = this.orderId.substring(0, 15)
         if (this.type === 'recharge') {
-          this.$router.push('/order_detail/recharge_detail/'+this.orderId)
+          this.$router.push('/order_detail/recharge_detail/'+orderId)
         } else if (this.refer === 'quick') {
-          this.$router.push('/order_detail/quick_meal_detail/'+this.orderId)
+          this.$router.push('/order_detail/quick_meal_detail/'+orderId)
         } else {
-          this.$router.push('/order_detail/dine_detail/'+this.orderId)
+          this.$router.push('/order_detail/dine_detail/'+orderId)
         }
       },
       viewAd () {
