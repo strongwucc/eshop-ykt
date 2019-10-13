@@ -11,7 +11,8 @@
       <div class="wrapper">
         <div class="balance">
           <span class="label">卡内余额</span>
-          <span>￥{{account.advance|formatMoney}}</span>
+          <span v-if="account.card_balance">￥{{account.card_balance / 100 | formatMoney}}</span>
+          <span v-else>￥{{account.advance|formatMoney}}</span>
         </div>
         <div class="integral">
           <span class="label">获得积分</span>
