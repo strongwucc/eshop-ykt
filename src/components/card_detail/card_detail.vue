@@ -1,33 +1,33 @@
 <template>
   <div class="card-detail-page">
     <div class="banner" ref="banner">
-      <div class="virtual-card" v-if="'0' === '0'">
+      <div class="virtual-card" v-if="cardInfo.member_card_type === '0'">
         <div class="info">
           <div class="left">
             <span class="label">会员卡</span>
-            <span class="no">NO.1254****5654</span>
+            <span class="no">NO.{{cardInfo.card_no | cardNoFormat}}</span>
           </div>
-          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})">充值</div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: cardInfo.card_no}})">充值</div>
         </div>
         <div class="money">
           <span class="label">余额(元)</span>
-          <span class="value">0.00</span>
+          <span class="value">{{cardInfo.balace | formatMoney(2)}}</span>
         </div>
       </div>
-      <div class="entity-card" v-if="'0' === '1'">
+      <div class="entity-card" v-if="cardInfo.member_card_type === '1'">
         <div class="info">
           <div class="left">
             <span class="label">实体卡</span>
-            <span class="no">NO.1254****5654</span>
+            <span class="no">NO.{{cardInfo.card_no | cardNoFormat}}</span>
           </div>
-          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})"><span class="btn">充值</span></div>
+          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: cardInfo.card_no}})"><span class="btn">充值</span></div>
         </div>
         <div class="money">
           <div class="left">
             <span class="label">余额(元)</span>
-            <span class="expired-date">有效期：2010.05.06-2020.05.06</span>
+            <span class="expired-date">有效期：{{cardInfo.binding_time | cardDate}}-{{cardInfo.valid_time | cardDate}}</span>
           </div>
-          <div class="right">20.00</div>
+          <div class="right">{{cardInfo.balace | formatMoney(2)}}</div>
         </div>
       </div>
     </div>
@@ -47,12 +47,11 @@
           ref="transList">
           <li class="transaction-info" v-for="item in transactionList">
             <div class="left">
-              <h3 class="store-name">{{item.message}}</h3>
-              <p class="order-NO">订单号：{{item.order_id}}</p>
-              <p class="order-date">订单时间：{{item.mtime|toDate}}</p>
+              <h3 class="store-name">{{item.txnname}}</h3>
+              <p class="order-NO">订单号：{{item.out_order_id}}</p>
+              <p class="order-date">订单时间：{{item.txndate | cardDate('-')}} {{item.txntime | cardTime}}</p>
             </div>
-            <div class="right" v-if="item.explode_money > 0">-{{item.explode_money|formatMoney}}</div>
-            <div class="right" v-else-if="item.import_money > 0">+{{item.import_money|formatMoney}}</div>
+            <div class="right">{{item.txnamt}}</div>
           </li>
         </ul>
         <!--<p class="load-more" v-show="!allLoaded"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;加载中...</p>-->

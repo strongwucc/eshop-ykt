@@ -14,6 +14,7 @@ export default {
 	user: {
 		member_center: 'member.userinfo',                     // 个人中心
     member_code: 'member.usercode',                       // 用户码
+    card_code: 'member.cardcode',                         // 会员卡付款码
     change_mobile: 'member.change_mobile',                // 跟换手机号
     change_paycode: 'member.change_paycode',              // 跟换支付密码
     reset_paycode: 'member.reset_paycode',                // 重置支付密码
@@ -35,6 +36,7 @@ export default {
     member_card_info: 'member.card_info',                 // 会员卡信息
     member_card_records: 'member.card_records',           // 会员卡消费记录
     activate_card: 'member.activate_card',                // 会员卡激活
+    bind_card: 'member.bind_card',                        // 会员卡绑定
 	},
 
   seller: {
@@ -70,6 +72,7 @@ export default {
     coupon_query: 'store.coupon_query',                    // 优惠券抵扣查询
     pay_method: 'order.pay_method',                        // 获取支付方式
     pay: 'order.pay',                                      // 支付
+    card_pay: 'order.card_pay',                            // 会员卡支付
     pay_success: 'order.pay_success',                      // 支付成功
   },
 

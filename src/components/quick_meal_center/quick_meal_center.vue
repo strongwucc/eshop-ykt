@@ -37,7 +37,7 @@
               <img src="../../assets/img/quick_meal_center/icon_phone@2x.png"/><span>{{ userInfo.mobile }}</span>
             </div>
           </div>
-          <div class="account-code" @click.stop="codeViewShow">
+          <div class="account-code" @click.stop="codeViewShow" v-if="userInfo.card_info.cardNum > 0">
             <img src="../../assets/img/quick_meal_center/icon_huiyuanma@2x.png"/><span class="notice">付款码</span>
           </div>
         </div>
@@ -122,15 +122,27 @@
             <span>手动刷新动态码</span>
             <img src="../../assets/img/center/popup_icon_refurbish@2x.png">
           </div>
-          <div class="selected-card" @click.stop="showCardList">
-            <div class="card-no">
-              <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
-              <span class="number">虚拟卡 NO.1325****1235</span>
-              <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
-            </div>
-            <div class="card-money">
-              余额:￥25.00
-            </div>
+          <div class="selected-card" @click.stop="showCardList" v-if="cards.length > 0">
+            <template v-if="cards[0].member_card_type === '0'">
+              <div class="card-no">
+                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <span class="number">虚拟卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
+                <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
+              </div>
+              <div class="card-money">
+                余额:￥{{cards[0].card_balance | formatMoney(2)}}
+              </div>
+            </template>
+            <template v-if="cards[0].member_card_type === '1'">
+              <div class="card-no">
+                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <span class="number">虚拟卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
+                <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
+              </div>
+              <div class="card-money">
+                余额:￥{{cards[0].card_balance | formatMoney(2)}}
+              </div>
+            </template>
           </div>
         </div>
         <div class="hide-view" @click="codeViewVisible = false">
@@ -144,29 +156,18 @@
       <div class="card-list-area">
         <div class="title">选择会员卡</div>
         <div class="list">
-          <div class="list-item">
+          <div class="list-item" v-for="card in cards" @click.stop="selectCard(card)">
             <div class="left">
               <div class="card-no">
                 <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
-                <span class="number">会员卡 NO.1325****1235</span>
+                <span class="number" v-if="card.member_card_type === '0'">会员卡 NO.{{card.card_no | cardNoFormat}}</span>
+                <span class="number" v-if="card.member_card_type === '1'">实体卡 NO.{{card.card_no | cardNoFormat}}</span>
               </div>
               <div class="card-money">
-                余额:￥25.00
+                余额:￥{{card.card_balance | formatMoney(2)}}
               </div>
             </div>
-            <div class="right"><img src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
-          </div>
-          <div class="list-item">
-            <div class="left">
-              <div class="card-no">
-                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
-                <span class="number">会员卡 NO.1325****1235</span>
-              </div>
-              <div class="card-money">
-                余额:￥25.00
-              </div>
-            </div>
-            <div class="right"><img src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
+            <div class="right"><img v-if="selectedCard.card_no = card.card_no" src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
           </div>
         </div>
         <div class="bind-card" @click.stop="$router.push('/bind_card')">
@@ -202,14 +203,16 @@
           },
           codeTimer: null,
           featuresViewVisible: false,//显示功能列表
-          cardListVisible: false
-
+          cardListVisible: false,
+          cards: [],
+          selectedCard: null
         }
     },
     components: {
         barcode
     },
     mounted () {
+      this.getCards()
       // this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
     },
 
@@ -235,7 +238,13 @@
         this.featuresViewVisible = !this.featuresViewVisible
       },
       codeViewShow () {
-        this.$http.post(this.API.user.member_code,{}).then(res => {
+        if (!this.selectedCard) {
+          this.$myToast('对不起，您还没有会员卡！')
+          return false
+        }
+        let card_no = this.selectedCard.card_no
+        this.$http.post(this.API.user.card_code,{card_no: card_no}).then(res => {
+          console.log(res)
           if (res.return_code === '0000') {
             this.codeTxt = res.data.brcode
             this.codeViewVisible = true
@@ -268,6 +277,21 @@
       },
       showCardList () {
         this.cardListVisible = true
+      },
+      getCards () {
+        this.$http.post(this.API.user.member_cards,{}).then(res => {
+          if (res.return_code === '0000') {
+            this.cards = this.cards.concat(res.data.list)
+            if (this.cards.length > 0) {
+              this.selectedCard = this.cards[0]
+            }
+          }
+        })
+      },
+      selectCard (card) {
+        this.selectedCard = card
+        this.cardListVisible = false
+        this.codeViewShow()
       }
     },
     watch: {
@@ -327,6 +351,7 @@
         img{
           width: 120px;
           height: 120px;
+          border-radius: 50%;
         }
       }
       .account{

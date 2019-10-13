@@ -5,35 +5,37 @@
         <span class="label">我的卡</span>
         <span class="count">共{{userInfo.card_info.cardNum}}张</span>
       </div>
-      <div class="virtual-card">
-        <div class="info">
-          <div class="left">
-            <span class="label">会员卡</span>
-            <span class="no">NO.1254****5654</span>
+      <template v-for="card in cards">
+        <div v-if="card.member_card_type === '0'" class="virtual-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
+          <div class="info">
+            <div class="left">
+              <span class="label">会员卡</span>
+              <span class="no">NO.{{card.card_no | cardNoFormat}}</span>
+            </div>
+            <div class="right" @click.stop="$router.push({name: 'card_recharge', params: {cardNo: card.card_no}})">充值</div>
           </div>
-          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})">充值</div>
-        </div>
-        <div class="money">
-          <span class="label">余额(元)</span>
-          <span class="value">0.00</span>
-        </div>
-      </div>
-      <div class="entity-card">
-        <div class="info">
-          <div class="left">
-            <span class="label">实体卡</span>
-            <span class="no">NO.1254****5654</span>
-          </div>
-          <div class="right" @click="$router.push({name: 'card_recharge', params: {cardNo: 111}})"><span class="btn">充值</span></div>
-        </div>
-        <div class="money">
-          <div class="left">
+          <div class="money">
             <span class="label">余额(元)</span>
-            <span class="expired-date">有效期：2010.05.06-2020.05.06</span>
+            <span class="value">{{card.card_balance | formatMoney(2)}}</span>
           </div>
-          <div class="right">20.00</div>
         </div>
-      </div>
+        <div v-if="card.member_card_type === '1'" class="entity-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
+          <div class="info">
+            <div class="left">
+              <span class="label">实体卡</span>
+              <span class="no">NO.{{card.card_no | cardNoFormat}}</span>
+            </div>
+            <div class="right" @click.stop="$router.push({name: 'card_recharge', params: {cardNo: card.card_no}})"><span class="btn">充值</span></div>
+          </div>
+          <div class="money">
+            <div class="left">
+              <span class="label">余额(元)</span>
+              <span class="expired-date">有效期：{{card.binding_time | cardDate}}-{{card.valid_time | cardDate}}</span>
+            </div>
+            <div class="right">{{card.card_balance | formatMoney(2)}}</div>
+          </div>
+        </div>
+      </template>
       <div class="add-card-area" @click.stop="$router.push('/bind_card')">
         <img class="icon" src="../../assets/img/my_blance_new/icon_plus@2x.png"/>
         <span class="notice">添加实体卡</span>

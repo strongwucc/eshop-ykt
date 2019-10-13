@@ -21,10 +21,10 @@ let wxRedirect
 let aliRedirect
 
 if (process.env.NODE_ENV === 'development') {
-  rootUrl = 'http://192.168.1.104/sellerpok/'
+  // rootUrl = 'http://192.168.1.104/sellerpok/'
   // rootUrl = 'http://192.168.2.116:82/'
   // rootUrl = 'http://shop00129.yklsh.etonepay.com/'
-  // rootUrl = 'http://ceshi6.sdykt.com.cn:1280/sellerpok/'
+  rootUrl = 'http://ceshi6.sdykt.com.cn:1280/sellerpok/'
   baseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   imgBaseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   wxOauth = rootUrl + 'index.php/openapi/catering_route/esOauth'

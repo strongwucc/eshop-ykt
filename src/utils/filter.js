@@ -181,3 +181,28 @@ Vue.filter('getDistance', function(position){
     s = Math.round(s * 10000)
     return s;
 })
+
+//把会员卡号处理加星
+Vue.filter('cardNoFormat', function (item) {
+  if(typeof item == 'string'){
+    return item.substring(0,4)+"****"+item.substring(15,19);
+  }
+  return item;
+})
+
+//把会员卡号有日期
+Vue.filter('cardDate', function (item, delimiter) {
+  if(typeof item == 'string'){
+    delimiter = delimiter == 'undefined' || delimiter == null ? '.' : delimiter
+    return item.substring(0,4)+delimiter+item.substring(4,6)+delimiter+item.substring(6,8);
+  }
+  return item;
+})
+
+//把会员卡号时间
+Vue.filter('cardTime', function (item) {
+  if(typeof item == 'string'){
+    return item.substring(0,2)+":"+item.substring(2,4)+":"+item.substring(4,6);
+  }
+  return item;
+})

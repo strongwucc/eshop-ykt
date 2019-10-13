@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import {mapMutations} from 'vuex'
   import MyToast from '../../base/toast'
   import Valid from '../../utils/valid'
   import Encrypt from "../../assets/js/encrypt/encrypt"
@@ -76,6 +77,9 @@
 
     },
     methods: {
+      ...mapMutations([
+        'set_user_info'
+      ]),
       beHide (bool) {
         this.warnTip = bool
       },
@@ -137,6 +141,9 @@
                   type: 'success',
                   txt: '激活成功'
                 }
+                let user_info = _this.$store.state.user.user_info
+                user_info.card_info.cardNum = '1'
+                this.set_user_info(user_info)
                 _this.$router.go(-1)
                 return true
               } else {
