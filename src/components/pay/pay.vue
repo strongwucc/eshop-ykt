@@ -45,22 +45,24 @@
               <!--</i>-->
             <!--</div>-->
           <!--</template>-->
-        </template>
-        <div v-for="card in cards" class="way member-card" @click.stop="selectCard(card)">
-          <div class="l">
-            <img class="icon" src="../../assets/img/pay/pay_icon_membercard@2x.png">
-            <span class="txt">
+          <template v-if="payMethod.pay_type == '2'">
+            <div v-for="card in cards" class="way member-card" @click.stop="selectCard(card)">
+              <div class="l">
+                <img class="icon" src="../../assets/img/pay/pay_icon_membercard@2x.png">
+                <span class="txt">
               <p>会员卡 NO.{{card.card_no | cardNoFormat}}</p>
-              <p class="balance">卡内余额：￥{{card.card_balance | formatMoney(2)}}</p>
+              <p class="balance">卡内余额：￥{{card.card_balance / 100 | formatMoney(2)}}</p>
             </span>
-          </div>
-          <i class="selected" v-show="payType == 'card' && selectedCard.card_no == card.card_no">
-            <img src="../../assets/img/pay/option_select_yellow@2x.png">
-          </i>
-          <i class="unselected" v-show="payType != 'card' || selectedCard.card_no != card.card_no">
-            <img src="../../assets/img/pay/option_select_normal@2x.png">
-          </i>
-        </div>
+              </div>
+              <i class="selected" v-show="payType == 'card' && selectedCard.card_no == card.card_no">
+                <img src="../../assets/img/pay/option_select_yellow@2x.png">
+              </i>
+              <i class="unselected" v-show="payType != 'card' || selectedCard.card_no != card.card_no">
+                <img src="../../assets/img/pay/option_select_normal@2x.png">
+              </i>
+            </div>
+          </template>
+        </template>
       </div>
     </div>
     <button class="btn" v-if="payable == 1" @click="goPay">确认支付：￥{{amount | formatActualMoney}}</button>
@@ -285,7 +287,7 @@
         })
       },
       selectCard (card) {
-        if (card.card_balance < this.amount) {
+        if (card.card_balance / 100 < this.amount) {
           this.$myToast('余额不足')
           return false
         }

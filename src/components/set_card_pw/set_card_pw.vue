@@ -143,7 +143,7 @@
                 }
                 let user_info = _this.$store.state.user.user_info
                 user_info.card_info.cardNum = '1'
-                this.set_user_info(user_info)
+                _this.set_user_info(user_info)
                 _this.$router.go(-1)
                 return true
               } else {

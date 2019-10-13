@@ -2,7 +2,7 @@
   <div class="my-balance-new-page">
     <div class="my-balance-area">
       <div class="title">余额总计(元)</div>
-      <div class="balance">{{ userInfo.card_info.balance | formatMoney(2) }}</div>
+      <div class="balance">{{ userInfo.card_info.balance / 100 | formatMoney(2) }}</div>
       <template v-for="card in cards">
         <div v-if="card.member_card_type === '0'" class="virtual-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
           <div class="info">
@@ -14,7 +14,7 @@
           </div>
           <div class="money">
             <span class="label">余额(元)</span>
-            <span class="value">{{card.card_balance | formatMoney(2)}}</span>
+            <span class="value">{{card.card_balance / 100 | formatMoney(2)}}</span>
           </div>
         </div>
         <div v-if="card.member_card_type === '1'" class="entity-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
@@ -30,7 +30,7 @@
               <span class="label">余额(元)</span>
               <span class="expired-date">有效期：{{card.binding_time | cardDate}}-{{card.valid_time | cardDate}}</span>
             </div>
-            <div class="right">{{card.card_balance | formatMoney(2)}}</div>
+            <div class="right">{{card.card_balance / 100 | formatMoney(2)}}</div>
           </div>
         </div>
       </template>

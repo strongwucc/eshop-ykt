@@ -11,7 +11,7 @@
         </div>
         <div class="money">
           <span class="label">余额(元)</span>
-          <span class="value">{{cardInfo.balace | formatMoney(2)}}</span>
+          <span class="value">{{cardInfo.balace / 100 | formatMoney(2)}}</span>
         </div>
       </div>
       <div class="entity-card" v-if="cardInfo.member_card_type === '1'">
@@ -51,7 +51,7 @@
               <p class="order-NO">订单号：{{item.out_order_id}}</p>
               <p class="order-date">订单时间：{{item.txndate | cardDate('-')}} {{item.txntime | cardTime}}</p>
             </div>
-            <div class="right">{{item.txnamt}}</div>
+            <div class="right">{{item.txnamt / 100 | formatMoney(2) }}</div>
           </li>
         </ul>
         <!--<p class="load-more" v-show="!allLoaded"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;加载中...</p>-->

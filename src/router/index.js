@@ -69,7 +69,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/demo'
+      redirect: '/center'
     },
 
     {

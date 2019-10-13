@@ -32,8 +32,8 @@ if (process.env.NODE_ENV === 'development') {
   aliRedirect = 'http://ceshi6.sdykt.com.cn:1280/eshop/alipay.html'
 } else if (process.env.NODE_ENV === 'production') {
   // rootUrl = 'http://192.168.2.116:82/'
-  // rootUrl = 'http://' + window.location.host + '/sellerpok/'
-  rootUrl = 'http://' + window.location.host + '/'
+  rootUrl = 'http://' + window.location.host + '/sellerpok/'
+  // rootUrl = 'http://' + window.location.host + '/'
   baseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   imgBaseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   wxOauth = rootUrl + 'index.php/openapi/catering_route/esOauth'

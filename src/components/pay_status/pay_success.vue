@@ -39,7 +39,8 @@
         orderId: this.$route.params.orderId,
         payed: 0.0,
         account: null,
-        refer: 'local'
+        refer: 'local',
+        type: 'normal',
       }
     },
     mounted () {
@@ -53,6 +54,7 @@
             this.payed = res.data.payed
             this.account = res.data.account
             this.refer = res.data.refer
+            this.type = res.data.type
           } else {
             this.$toast(res.return_msg)
             return
@@ -60,7 +62,9 @@
         })
       },
       goDetail () {
-        if (this.refer === 'quick') {
+        if (this.type === 'recharge') {
+          this.$router.push('/order_detail/recharge_detail/'+this.orderId)
+        } else if (this.refer === 'quick') {
           this.$router.push('/order_detail/quick_meal_detail/'+this.orderId)
         } else {
           this.$router.push('/order_detail/dine_detail/'+this.orderId)

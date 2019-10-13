@@ -53,7 +53,7 @@
         </div>
         <div class="balance" @click="$router.push('/my_balance_new')">
           <!--<span class="num">{{ userInfo.advance | formatMoney }}</span>-->
-          <span class="num">{{ userInfo.card_info.balance | formatMoney }}</span>
+          <span class="num">{{ userInfo.card_info.balance / 100 | formatMoney }}</span>
           <span class="txt">余额（元）</span>
         </div>
       </div>
@@ -130,7 +130,7 @@
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
               <div class="card-money">
-                余额:￥{{cards[0].card_balance | formatMoney(2)}}
+                余额:￥{{cards[0].card_balance / 100 | formatMoney(2)}}
               </div>
             </template>
             <template v-if="cards[0].member_card_type === '1'">
@@ -140,7 +140,7 @@
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
               <div class="card-money">
-                余额:￥{{cards[0].card_balance | formatMoney(2)}}
+                余额:￥{{cards[0].card_balance /1000 | formatMoney(2)}}
               </div>
             </template>
           </div>
@@ -164,7 +164,7 @@
                 <span class="number" v-if="card.member_card_type === '1'">实体卡 NO.{{card.card_no | cardNoFormat}}</span>
               </div>
               <div class="card-money">
-                余额:￥{{card.card_balance | formatMoney(2)}}
+                余额:￥{{card.card_balance / 100 | formatMoney(2)}}
               </div>
             </div>
             <div class="right"><img v-if="selectedCard.card_no = card.card_no" src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
