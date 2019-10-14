@@ -325,6 +325,11 @@
             console.log(ranKey)
             window.passGuard1.setRandKey(ranKey);
             let password = window.passGuard1.getOutput()
+            document.getElementById("kb1").value = "";
+            //这一段for循环，如果没用必须加上，防止placeholder效果失效。
+            for(var i = 1;i <= Le;i++){
+              $("#kb"+i).attr('placeholder',PH.arrPlace[i-1])
+            }
             _this.cardPayViewVisible = false
             console.log(password)
             _this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})

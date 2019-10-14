@@ -161,6 +161,7 @@ Vue.filter('paymentFormat', function(item){
       paymentName = '微信支付'
       break
     case 'deposit':
+    case 'yktnativepay':
       paymentName = '会员卡支付'
       break
   }

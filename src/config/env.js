@@ -28,8 +28,8 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   imgBaseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   wxOauth = rootUrl + 'index.php/openapi/catering_route/esOauth'
-  wxRedirect = 'http://ceshi6.sdykt.com.cn:1280/eshop/wechat.html'
-  aliRedirect = 'http://ceshi6.sdykt.com.cn:1280/eshop/alipay.html'
+  wxRedirect = 'http://ceshi6.sdykt.com.cn:1280/eshop-ykt/wechat.html'
+  aliRedirect = 'http://ceshi6.sdykt.com.cn:1280/eshop-ykt/alipay.html'
 } else if (process.env.NODE_ENV === 'production') {
   // rootUrl = 'http://192.168.2.116:82/'
   rootUrl = 'http://' + window.location.host + '/sellerpok/'
@@ -37,8 +37,8 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   imgBaseUrl = rootUrl + 'index.php/openapi/catering_route/accept'
   wxOauth = rootUrl + 'index.php/openapi/catering_route/esOauth'
-  wxRedirect = 'http://' + window.location.host + '/eshop-ykl/wechat.html'
-  aliRedirect = 'http://' + window.location.host + '/eshop-ykl/alipay.html'
+  wxRedirect = 'http://' + window.location.host + '/eshop-ykt/wechat.html'
+  aliRedirect = 'http://' + window.location.host + '/eshop-ykt/alipay.html'
 }
 
 export {

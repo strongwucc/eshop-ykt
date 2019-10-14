@@ -53,16 +53,16 @@
           <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
         </span>
       </div>
-      <div class="item" @click="$router.push('/change_pw')">
-        <span class="l">
-          修改支付密码
-        </span>
-        <span class="r">
-          <span class="exist"></span>
-          <span class="not-exist">修改</span>
-          <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
-        </span>
-      </div>
+      <!--<div class="item" @click="$router.push('/change_pw')">-->
+        <!--<span class="l">-->
+          <!--修改支付密码-->
+        <!--</span>-->
+        <!--<span class="r">-->
+          <!--<span class="exist"></span>-->
+          <!--<span class="not-exist">修改</span>-->
+          <!--<img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">-->
+        <!--</span>-->
+      <!--</div>-->
     </div>
 
     <div class="logout" @click="logout">注销登录</div>

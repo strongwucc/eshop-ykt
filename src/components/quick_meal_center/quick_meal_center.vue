@@ -32,7 +32,8 @@
         <div class="avatar"><img :src="userInfo.headimgurl | avatar"></div>
         <div class="account">
           <div class="account-info">
-            <div class="name">{{ userInfo.nickname }}</div>
+            <div class="name" v-if="userInfo.name">{{ userInfo.name }}</div>
+            <div class="name" v-else>{{ userInfo.nickname }}</div>
             <div class="mobile">
               <img src="../../assets/img/quick_meal_center/icon_phone@2x.png"/><span>{{ userInfo.mobile }}</span>
             </div>
@@ -53,14 +54,15 @@
         </div>
         <div class="balance" @click="$router.push('/my_balance_new')">
           <!--<span class="num">{{ userInfo.advance | formatMoney }}</span>-->
-          <span class="num">{{ userInfo.card_info.balance / 100 | formatMoney }}</span>
+          <span class="num" v-if="userInfo.card_info.cardNum > 0">{{ userInfo.card_info.balance / 100 | formatMoney }}</span>
+          <span class="notice" v-else>激活会员卡</span>
           <span class="txt">余额（元）</span>
         </div>
       </div>
     </div>
     <div class="mian-list">
       <ul>
-        <li @click="$router.push('/my_card_holder')">
+        <li @click="$router.push('/my_card_holder')" v-if="userInfo.card_info.cardNum > 0">
           <div class="l">
             <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png">
             <span class="txt"><span>我的卡包</span><span class="count">{{userInfo.card_info.cardNum}}张</span></span>
@@ -105,8 +107,10 @@
     <mt-popup
       v-model="codeViewVisible"
       popup-transition="popup-fade"
+      class="popup-code"
+      @touchmove.prevent
     >
-      <div class="code-view">
+      <div class="code-view" @touchmove.prevent>
         <div class="view-main">
           <div class="t-color"></div>
           <h3 class="title">动态会员码</h3>
@@ -125,7 +129,7 @@
           <div class="selected-card" @click.stop="showCardList" v-if="cards.length > 0">
             <template v-if="cards[0].member_card_type === '0'">
               <div class="card-no">
-                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <img class="icon" src="../../assets/img/quick_meal_center/icon_card1@2x.png"/>
                 <span class="number">虚拟卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
@@ -135,8 +139,8 @@
             </template>
             <template v-if="cards[0].member_card_type === '1'">
               <div class="card-no">
-                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
-                <span class="number">虚拟卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
+                <img class="icon" src="../../assets/img/quick_meal_center/icon_card1@2x.png"/>
+                <span class="number">会员卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
               <div class="card-money">
@@ -152,14 +156,16 @@
     </mt-popup>
     <mt-popup
       v-model="cardListVisible"
-      position="bottom">
-      <div class="card-list-area">
+      position="bottom"
+      @touchmove.prevent
+    >
+      <div class="card-list-area" @touchmove.prevent>
         <div class="title">选择会员卡</div>
         <div class="list">
           <div class="list-item" v-for="card in cards" @click.stop="selectCard(card)">
             <div class="left">
               <div class="card-no">
-                <img class="icon" src="../../assets/img/quick_meal_center/member_icon_cardcase@2x.png"/>
+                <img class="icon" src="../../assets/img/quick_meal_center/icon_card1@2x.png"/>
                 <span class="number" v-if="card.member_card_type === '0'">会员卡 NO.{{card.card_no | cardNoFormat}}</span>
                 <span class="number" v-if="card.member_card_type === '1'">实体卡 NO.{{card.card_no | cardNoFormat}}</span>
               </div>
@@ -246,7 +252,7 @@
         this.$http.post(this.API.user.card_code,{card_no: card_no}).then(res => {
           console.log(res)
           if (res.return_code === '0000') {
-            this.codeTxt = res.data.brcode
+            this.codeTxt = res.data.biz_content.qrcode
             this.codeViewVisible = true
               this.$nextTick(() => {
                 this.qrcode()
@@ -327,6 +333,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    overflow: hidden;
     .member-bg{
       position: absolute;
       z-index: 5;
@@ -457,6 +464,15 @@
           height:74px;
           background:rgba(229,229,229,1);
           right: 0;
+        }
+      }
+      .balance{
+        .notice{
+          font-size:30px;
+          font-weight:400;
+          color:rgba(255,106,89,1);
+          height:56px;
+          line-height: 56px;
         }
       }
     }
@@ -711,6 +727,9 @@
         }
       }
     }
+  }
+  .popup-code{
+    top: 45%;
   }
   .features{
     position: fixed;

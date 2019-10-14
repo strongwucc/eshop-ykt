@@ -48,7 +48,11 @@
 <style lang="scss" scoped>
   @import "../../assets/css/common";
   .pay-fail-page{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /*text-align: center;*/
     height: 100%;
     background-color: #ffffff;
     .tip-icon{

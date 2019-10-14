@@ -87,7 +87,7 @@
     background-color: #ffffff;
     .head{
       display: flex;
-      margin: 60px 0 72px 70px;
+      padding: 60px 0 72px 70px;
       align-items: center;
       img{
         width: 234px;
@@ -143,8 +143,9 @@
       font-size: 30px;
     }
     .advertising-space {
-      position: absolute;
-      bottom: 80px;
+      /*position: fixed;*/
+      /*bottom: 80px;*/
+      margin-top: 106px;
       img {
         height: 260px;
       }

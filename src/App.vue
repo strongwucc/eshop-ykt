@@ -106,7 +106,7 @@
   background-color: rgb(242,242,245);
 }
 .support{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   line-height: 80px;
   width: 100%;

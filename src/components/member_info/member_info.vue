@@ -23,18 +23,18 @@
         </div>
       </div>
     </div>
-    <div class="info-item my-balance" @click="$router.push('member_recharge')">
-      <i class="icon">
-        <img src="../../assets/img/member_info/my_ic_yue@2x.png"/>
-      </i>
-      <div class="main">
-        <span class="title">我的余额</span>
-        <div class="r">
-          <span>￥{{user_info.advance|formatMoney}}</span>
-          <img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">
-        </div>
-      </div>
-    </div>
+    <!--<div class="info-item my-balance" @click="$router.push('member_recharge')">-->
+      <!--<i class="icon">-->
+        <!--<img src="../../assets/img/member_info/my_ic_yue@2x.png"/>-->
+      <!--</i>-->
+      <!--<div class="main">-->
+        <!--<span class="title">我的余额</span>-->
+        <!--<div class="r">-->
+          <!--<span>￥{{user_info.advance|formatMoney}}</span>-->
+          <!--<img class="arrow-r" src="../../assets/img/common/arrow_right@2x.png">-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="info-item my-coupons" @click="$router.push('/my_coupons')">
       <i class="icon">
         <img src="../../assets/img/member_info/my_ic_youhuiquan@2x.png"/>
