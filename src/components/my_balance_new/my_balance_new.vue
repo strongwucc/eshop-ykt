@@ -4,7 +4,7 @@
       <div class="title">余额总计(元)</div>
       <div class="balance">{{ userInfo.card_info.balance / 100 | formatMoney(2) }}</div>
       <template v-for="card in cards">
-        <div v-if="card.member_card_type === '0'" class="virtual-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
+        <div v-if="card.member_card_type === '0'" class="card-item virtual-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
           <div class="info">
             <div class="left">
               <span class="label">会员卡</span>
@@ -17,7 +17,7 @@
             <span class="value">{{card.card_balance / 100 | formatMoney(2)}}</span>
           </div>
         </div>
-        <div v-if="card.member_card_type === '1'" class="entity-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
+        <div v-if="card.member_card_type === '1'" class="card-item entity-card" @click.stop="$router.push({name: 'card_detail', params: {cardNo: card.card_no}})">
           <div class="info">
             <div class="left">
               <span class="label">实体卡</span>
@@ -129,9 +129,10 @@
         font-weight:bold;
         line-height:100px;
         color:rgba(51,51,51,1);
+        margin-bottom: 60px;
       }
       .virtual-card{
-        margin-top: 60px;
+        /*margin-top: 60px;*/
         padding: 35px 34px 0 49px;
         width:669px;
         height:262px;
@@ -203,7 +204,7 @@
         }
       }
       .entity-card{
-        margin-top: 31px;
+        /*margin-top: 31px;*/
         padding: 35px 34px 0 49px;
         width:669px;
         height:262px;
@@ -281,10 +282,13 @@
           }
         }
       }
+      .card-item{
+        margin-bottom: 31px;
+      }
       .add-card-area{
         width:670px;
         height:260px;
-        margin-top: 30px;
+        /*margin-top: 30px;*/
         background:rgba(255,255,255,1);
         border:1px solid rgba(187,187,187,1);
         border-radius:20px;

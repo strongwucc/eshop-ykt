@@ -50,7 +50,7 @@
               <div class="l">
                 <img class="icon" src="../../assets/img/pay/pay_icon_membercard@2x.png">
                 <span class="txt">
-              <p>会员卡 NO.{{card.card_no | cardNoFormat}}</p>
+                  <p><span v-if="card.member_card_type === '0'">会员卡</span><span v-if="card.member_card_type === '1'">实体卡</span><span> NO.{{card.card_no | cardNoFormat}}</span></p>
               <p class="balance">卡内余额：￥{{card.card_balance / 100 | formatMoney(2)}}</p>
             </span>
               </div>
@@ -157,7 +157,8 @@
         showNotice: false,
         userAgent: 'weixin',
         cards: [],
-        selectedCard: null
+        selectedCard: null,
+        mappingId: '',
       }
     },
     components: {
@@ -175,19 +176,20 @@
       clearInterval(this.deskStatusTimer)
     },
     mounted () {
+      this.mappingId = this.get_time()
       this.getPayMethod()
       this.getCards()
       this.checkAgent()
       this.$nextTick(() => {
         window.kb = new keyBoard({
-          "chaosMode" : 1,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
+          "chaosMode" : 0,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
           "pressStatus" :1,// 按键状态,0:按下、抬起按键无变化;1:按下后有放大镜效果;2:按下、抬起按键的颜色变化,默认值0
           "kbType" : 0,// 键盘类型,0:全键盘;1:纯数字键盘,默认值0
           "svg":"static/svg"//svg图片的地址
         })
         window.kb.generate()
         window.passGuard1 = new passGuard({
-          "mappurl" : "http://ceshi4.sdykt.com.cn:1280/demo/send_mapping",
+          "mappurl" : "http://ceshi4.sdykt.com.cn:1280/pos/card/getMapping/" + this.mappingId,
           "maxLength" : 6,// 最大输入长度
           "regExp1" : "[\\S\\s]",// 输入过程限制的正则
           "regExp2": "[0-9]{6,12}",
@@ -209,6 +211,8 @@
             this.methods = res.data.methods
             this.advance = res.data.advance
             this.payable = res.data.payable
+          } else if (res.return_code == '2000') {
+            this.$router.push('/pay_success/'+this.orderId)
           } else {
             this.$myToast(res.return_msg)
             return
@@ -318,7 +322,7 @@
         let _this = this
 
         $.ajax( {
-          url : "http://ceshi4.sdykt.com.cn:1280/demo/send_randkey?" + this.get_time(),
+          url : "http://ceshi4.sdykt.com.cn:1280/pos/card/getRandkey?" + this.get_time(),
           type : "GET",
           async : false,
           success : function(ranKey) {
@@ -334,7 +338,7 @@
             console.log(password)
             _this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
             _this.loading = true
-            _this.$http.post(_this.API.order.card_pay,{order_id: _this.orderId, card_no: _this.selectedCard.card_no, password: password, key: ranKey}).then(res => {
+            _this.$http.post(_this.API.order.card_pay,{order_id: _this.orderId, card_no: _this.selectedCard.card_no, password: password, key: ranKey, mappingId: _this.mappingId}).then(res => {
               _this.$myLoading.close()
               _this.loading = false
               if (res.return_code === '0000') {

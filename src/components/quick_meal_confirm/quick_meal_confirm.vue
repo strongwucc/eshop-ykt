@@ -257,11 +257,9 @@
         this.couponDiscount = data.discount
 
         if (data.coupon.card_type === 'CASH') {
-          if (data.coupon.least_cost > 0) {
-            this.couponName = '满减券'+parseInt(data.coupon.reduce_cost)+'元'
-          } else {
-            this.couponName = '代金券'+parseInt(data.coupon.reduce_cost)+'元'
-          }
+          this.couponName = '代金券'+parseInt(data.coupon.reduce_cost)+'元'
+        } else if (data.coupon.card_type === 'REDUCE') {
+          this.couponName = '满减券'+parseInt(data.coupon.reduce_cost)+'元'
         } else if (data.coupon.card_type === 'DISCOUNT') {
           this.couponName = '折扣券'+(100 - data.coupon.discount)/10+'折'
         }

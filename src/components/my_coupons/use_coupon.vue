@@ -5,7 +5,8 @@
       <div class="head">
         <span class="store-name">{{couponDetail.title}}</span>
         <span class="duihuan-icon" v-if="couponDetail.card_type === 'GIFT'">兑换券</span>
-        <span class="manjian-icon" v-else-if="couponDetail.card_type === 'CASH'">满减券</span>
+        <span class="manjian-icon" v-else-if="couponDetail.card_type === 'REDUCE'">满减券</span>
+        <span class="manjian-icon" v-else-if="couponDetail.card_type === 'CASH'">代金券</span>
         <span class="zhekou-icon" v-else-if="couponDetail.card_type === 'DISCOUNT'">折扣券</span>
       </div>
       <div class="value">

@@ -11,7 +11,7 @@
             <span>{{coupon.reduce_cost|formatMoney(0)}}</span>
             元
           </div>
-          <div class="icon">满减券</div>
+          <div class="icon">代金券</div>
         </div>
         <div class="l duihuan" v-else-if="coupon.card_type == 'EXCHANGE'">
           <div class="value">
@@ -28,9 +28,10 @@
         </div>
         <div class="l duihuan" v-else-if="coupon.card_type == 'REDUCE'">
           <div class="value">
-            团购券
+            <span>{{coupon.reduce_cost|formatMoney(0)}}</span>
+            元
           </div>
-          <div class="icon">团购券</div>
+          <div class="icon">满减券</div>
         </div>
         <div class="m">
           <p class="use-condition">

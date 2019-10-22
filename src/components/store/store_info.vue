@@ -50,7 +50,10 @@
     transform: translateX(100%);
     z-index: 999;
     background-color: rgba(0,0,0,.75);
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     transition: transform 0.3s ease;
     color: #ffffff;
     .logo{

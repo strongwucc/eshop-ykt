@@ -27,7 +27,7 @@
             <span class="label">余额(元)</span>
             <span class="expired-date">有效期：{{cardInfo.binding_time | cardDate}}-{{cardInfo.valid_time | cardDate}}</span>
           </div>
-          <div class="right">{{cardInfo.balace | formatMoney(2)}}</div>
+          <div class="right">{{cardInfo.balace / 100 | formatMoney(2)}}</div>
         </div>
       </div>
     </div>

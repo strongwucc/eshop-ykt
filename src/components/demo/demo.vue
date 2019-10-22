@@ -22,14 +22,14 @@
     mounted () {
       // window.passGuard.ib = "Wyc2MycsICcxMTEnLCAnNTYnLCAnMzcnLCAnNTInLCAnNDMnLCAnNjEnLCAnODUnLCAnNDAnLCAnMTE1JywgJzUzJywgJzQyJywgJzEyMScsICcxMjAnLCAnOTcnLCAnODcnLCAnNzcnLCAnMzknLCAnNjQnLCAnODYnLCAnNDEnLCAnOTgnLCAnMTEwJywgJzEwMScsICc0NScsICc2NicsICc5OScsICc3OScsICcxMDcnLCAnNzAnLCAnMTEyJywgJzkxJywgJzU1JywgJzQ5JywgJzEwMicsICc3MycsICcxMTMnLCAnNjAnLCAnNDQnLCAnNTEnLCAnMTE2JywgJzMzJywgJzkyJywgJzEyNicsICc3NCcsICc5MycsICcxMTQnLCAnNzYnLCAnMTA4JywgJzEwMycsICc1NycsICcxMDknLCAnODAnLCAnMTI1JywgJzc1JywgJzEwNScsICc4OScsICczOCcsICc2NycsICc4NCcsICc1OCcsICczNicsICcxMDYnLCAnMzQnLCAnMTIyJywgJzY1JywgJzM1JywgJzgyJywgJzQ4JywgJzQ3JywgJzYyJywgJzcxJywgJzEyNCcsICcxMTknLCAnMTE3JywgJzEwNCcsICc3MicsICc5NicsICc1NCcsICc5NCcsICc4OCcsICcxMjMnLCAnNDYnLCAnMTE4JywgJzkwJywgJzc4JywgJzk1JywgJzU5JywgJzUwJywgJzEwMCcsICc4MycsICc2OScsICc4MScsICc2OCdd"
       window.kb = new keyBoard({
-        "chaosMode" : 1,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
+        "chaosMode" : 0,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
         "pressStatus" :1,// 按键状态,0:按下、抬起按键无变化;1:按下后有放大镜效果;2:按下、抬起按键的颜色变化,默认值0
         "kbType" : 0,// 键盘类型,0:全键盘;1:纯数字键盘,默认值0
         "svg":"static/svg"//svg图片的地址
       })
       window.kb.generate()
       window.passGuard1 = new passGuard({
-        "mappurl" : "http://ceshi4.sdykt.com.cn:1280/demo/send_mapping",
+        "mappurl" : "http://ceshi4.sdykt.com.cn:1280/pos/card/getMapping?mappingId=" + this.get_time(),
         "maxLength" : 6,// 最大输入长度
         "regExp1" : "[\\S\\s]",// 输入过程限制的正则
         "regExp2": "[0-9]{6,12}",

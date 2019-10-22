@@ -4,6 +4,10 @@
       <label for="cardNo">卡号</label>
       <input type="tel" id="cardNo" v-model="cardNo" placeholder="请输入卡号"/>
     </div>
+    <div class="input-box reset-pw">
+      <label for="cardNo">cvv2</label>
+      <input type="tel" id="cvv2" v-model="cvv2" placeholder="请输入cvv2"/>
+    </div>
     <div class="input-box confirm-pw">
       <label for="kb1">支付密码</label>
       <input type="tel" maxlength="6" id="kb1" v-model="password" placeholder="请输入卡密码"/>
@@ -19,19 +23,22 @@
   import Valid from '../../utils/valid'
   import Encrypt from "../../assets/js/encrypt/encrypt"
   import back from '../../base/back'
+  import $ from 'jquery'
 
   export default {
     name: "bind_card",
     data () {
       return {
         cardNo: '',
+        cvv2: '',
         password: '',
         tipInfo: {
           icon: '',
           txt: ''
         },
         loading: false,
-        warnTip: false
+        warnTip: false,
+        mappingId: ''
       }
     },
     components: {
@@ -39,17 +46,18 @@
       back
     },
     mounted () {
+      this.mappingId = this.get_time()
       this.$nextTick(() => {
         window.kb = new keyBoard({
-          "chaosMode" : 1,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
+          "chaosMode" : 0,// 混乱模式,0:无混乱;1:打开时乱一次;2:每输入一个字符乱一次,默认值0
           "pressStatus" :1,// 按键状态,0:按下、抬起按键无变化;1:按下后有放大镜效果;2:按下、抬起按键的颜色变化,默认值0
           "kbType" : 0,// 键盘类型,0:全键盘;1:纯数字键盘,默认值0
           "svg":"static/svg"//svg图片的地址
         })
         window.kb.generate()
         window.passGuard1 = new passGuard({
-          "mappurl" : "http://ceshi4.sdykt.com.cn:1280/demo/send_mapping",
-          "maxLength" : 6,// 最大输入长度
+          "mappurl" : "http://ceshi4.sdykt.com.cn:1280/pos/card/getMapping/" + this.mappingId,
+          "maxLength" : 8,// 最大输入长度
           "regExp1" : "[\\S\\s]",// 输入过程限制的正则
           "regExp2": "[0-9]{6,12}",
           "displayMode" : 0,// 显示形式,0:星号;1:明文,默认值0
@@ -77,6 +85,15 @@
           return false
         }
 
+        if (!this.cvv2) {
+          this.warnTip = true
+          this.tipInfo = {
+            type: 'warn',
+            txt: '请输入cvv2'
+          }
+          return false
+        }
+
         if(window.passGuard1.getValid() == 1){
           this.warnTip = true
           this.tipInfo = {
@@ -89,7 +106,7 @@
         let _this = this
 
         $.ajax( {
-          url : "http://ceshi4.sdykt.com.cn:1280/demo/send_randkey?" + this.get_time(),
+          url : "http://ceshi4.sdykt.com.cn:1280/pos/card/getRandkey?" + this.get_time(),
           type : "GET",
           async : false,
           success : function(ranKey) {
@@ -105,7 +122,7 @@
             console.log(password)
             _this.$myLoading.open({ text: '加载中...', spinnerType: 'fading-circle'})
             _this.loading = true
-            _this.$http.post(_this.API.user.bind_card,{card_no: _this.cardNo, password: password, key: ranKey}).then(res => {
+            _this.$http.post(_this.API.user.bind_card,{card_no: _this.cardNo, cvv2: _this.cvv2, password: password, key: ranKey, mappingId: _this.mappingId}).then(res => {
               _this.$myLoading.close()
               _this.loading = false
               if (res.return_code === '0000') {

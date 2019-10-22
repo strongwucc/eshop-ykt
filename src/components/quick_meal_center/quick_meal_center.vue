@@ -127,24 +127,24 @@
             <img src="../../assets/img/center/popup_icon_refurbish@2x.png">
           </div>
           <div class="selected-card" @click.stop="showCardList" v-if="cards.length > 0">
-            <template v-if="cards[0].member_card_type === '0'">
+            <template v-if="selectedCard.member_card_type === '0'">
               <div class="card-no">
                 <img class="icon" src="../../assets/img/quick_meal_center/icon_card1@2x.png"/>
-                <span class="number">虚拟卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
+                <span class="number">会员卡 NO.{{selectedCard.card_no | cardNoFormat}}</span>
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
               <div class="card-money">
-                余额:￥{{cards[0].card_balance / 100 | formatMoney(2)}}
+                余额:￥{{selectedCard.card_balance / 100 | formatMoney(2)}}
               </div>
             </template>
-            <template v-if="cards[0].member_card_type === '1'">
+            <template v-if="selectedCard.member_card_type === '1'">
               <div class="card-no">
                 <img class="icon" src="../../assets/img/quick_meal_center/icon_card1@2x.png"/>
-                <span class="number">会员卡 NO.{{cards[0].card_no | cardNoFormat}}</span>
+                <span class="number">实体卡 NO.{{selectedCard.card_no | cardNoFormat}}</span>
                 <img class="drop-down" src="../../assets/img/common/arrow_right@2x.png"/>
               </div>
               <div class="card-money">
-                余额:￥{{cards[0].card_balance /1000 | formatMoney(2)}}
+                余额:￥{{selectedCard.card_balance /100 | formatMoney(2)}}
               </div>
             </template>
           </div>
@@ -173,7 +173,7 @@
                 余额:￥{{card.card_balance / 100 | formatMoney(2)}}
               </div>
             </div>
-            <div class="right"><img v-if="selectedCard.card_no = card.card_no" src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
+            <div class="right"><img v-if="selectedCard.card_no == card.card_no" src="../../assets/img/quick_meal_center/icon_choose@2x.png"/></div>
           </div>
         </div>
         <div class="bind-card" @click.stop="$router.push('/bind_card')">
@@ -285,9 +285,13 @@
         this.cardListVisible = true
       },
       getCards () {
+        console.log(111111111)
+        console.log(22222222)
         this.$http.post(this.API.user.member_cards,{}).then(res => {
+          console.log(res)
           if (res.return_code === '0000') {
-            this.cards = this.cards.concat(res.data.list)
+            this.cards = res.data.list
+            console.log(this.cards)
             if (this.cards.length > 0) {
               this.selectedCard = this.cards[0]
             }
