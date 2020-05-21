@@ -1,2 +1,0 @@
-webpackJsonp([52],{k10P:function(e,t){},xiSw:function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",{staticClass:"order-detail-page"},[t("router-view")],1)},staticRenderFns:[]};var n=r("VU/8")({name:"order_detail"},a,!1,function(e){r("k10P")},"data-v-0d5b648a",null);t.default=n.exports}});
-//# sourceMappingURL=52.023f407e0ffb71879213.js.map

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <p class="support">易通金服提供支持</p>
+    <!-- <p class="support">易通金服提供支持</p> -->
   </div>
 </template>
 

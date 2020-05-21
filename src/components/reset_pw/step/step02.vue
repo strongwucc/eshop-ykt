@@ -9,7 +9,7 @@
       <input type="tel" maxlength="6" id="re_enter" v-model="reEnter" placeholder="请确认新密码"/>
     </div>
     <button class="confirm" @click="confirm">确认</button>
-    <p class="support">易通金服提供支持</p>
+    <!-- <p class="support">易通金服提供支持</p> -->
     <my-toast :visible="warnTip" :options="tipInfo" @hideToast="beHide" class="customize-toast"></my-toast>
   </div>
 </template>

@@ -23,7 +23,7 @@
     "js-md5": "^0.7.3",
     "lib-flexible": "^0.3.2",
     "mint-ui": "^2.2.13",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "number-precision": "^1.2.0",
     "px2rem-loader": "^0.1.9",
     "qrcodejs2": "0.0.2",

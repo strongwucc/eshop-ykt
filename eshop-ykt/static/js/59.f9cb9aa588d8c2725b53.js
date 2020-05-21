@@ -1,2 +1,0 @@
-webpackJsonp([59],{"5TxT":function(e,t){},Sc8l:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",{staticClass:"reset-pw-page"},[t("router-view")],1)},staticRenderFns:[]};var s=n("VU/8")({name:"reset_pw"},r,!1,function(e){n("5TxT")},"data-v-115193f8",null);t.default=s.exports}});
-//# sourceMappingURL=59.f9cb9aa588d8c2725b53.js.map

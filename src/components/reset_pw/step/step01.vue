@@ -23,7 +23,7 @@
       </div>
     </div>
     <button class="confirm" @click="nextStep">下一步</button>
-    <p class="support">易通金服提供支持</p>
+    <!-- <p class="support">易通金服提供支持</p> -->
     <my-toast :visible="warnTip" :options="tipInfo" @hideToast="beHide" class="customize-toast"></my-toast>
   </div>
 </template>

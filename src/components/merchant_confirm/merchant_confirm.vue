@@ -46,7 +46,7 @@
       <img src="../../assets/img/pay/order_img_confirm@2x.png" @load="bgImageLoaded" @error="bgImageError">
       <p class="txt">商家确认中，客官请稍等~</p>
     </div>
-    <p class="support">易通金服提供支持</p>
+    <!-- <p class="support">易通金服提供支持</p> -->
   </div>
 </template>
 
