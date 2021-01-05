@@ -14,7 +14,7 @@
   "dependencies": {
     "@xkeshi/vue-barcode": "^1.0.0",
     "ajv": "^6.5.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "better-scroll": "^1.13.2",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
