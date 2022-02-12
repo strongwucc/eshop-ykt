@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@xkeshi/vue-barcode": "^1.0.0",
-    "ajv": "^6.5.4",
+    "ajv": "^6.12.3",
     "axios": "^0.18.0",
     "better-scroll": "^1.13.2",
     "fastclick": "^1.0.6",
